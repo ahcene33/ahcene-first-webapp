@@ -32,29 +32,28 @@ if not st.session_state.logged_in:
 
 # suite de l’app, même sans rerun
 if st.session_state.logged_in:
-    col1, col2 = st.columns([1, 2])
+    # Barre latérale à gauche
+    st.sidebar.title("Menu")
+    page = st.sidebar.radio("Navigation", [f"Bienvenue {st.session_state.username}", "Accueil", "Les photos de mon chat", "Déconnexion"])
 
-    with col1:
-        st.header("Menu")
-        page = st.radio("Navigation", [f"Bienvenue {st.session_state.username}", "Accueil", "Les photos de mon chat", "Déconnexion"])
+    # Zone principale à droite
+    if page == "Accueil":
+        st.title("Bienvenue sur ma page")
+        st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/640px-Lion_waiting_in_Namibia.jpg")
 
-    with col2:
-        if page == "Accueil":
-            st.title("Bienvenue sur ma page")
-            st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/640px-Lion_waiting_in_Namibia.jpg")
+    elif page == "Les photos de mon chat":
+        st.title("Bienvenue dans l'album de mon chat :-)")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.image("https://shawsheenanimalhospital.com/wp-content/uploads/2022/12/iStock-1149359608-scaled.jpg")
+        with col2:
+            st.image("https://www.lifewithcats.tv/wp-content/uploads/2011/04/Jumping-Cat.jpg")
+        with col3:
+            st.image("https://cdn.prod.website-files.com/5e55edd70aff9d4e8cf28aed/60a42459841a596126136981_wellness.png")
 
-        elif page == "Les photos de mon chat":
-            st.title("Bienvenue dans l'album de mon chat :-)")
-            col1, col2, col3 = st.columns(3)
-            with col1:
-                st.image("https://shawsheenanimalhospital.com/wp-content/uploads/2022/12/iStock-1149359608-scaled.jpg")
-            with col2:
-                st.image("https://www.lifewithcats.tv/wp-content/uploads/2011/04/Jumping-Cat.jpg")
-            with col3:
-                st.image("https://cdn.prod.website-files.com/5e55edd70aff9d4e8cf28aed/60a42459841a596126136981_wellness.png")
+    elif page == "Déconnexion":
+        st.session_state.logged_in = False
+        st.session_state.username = ""
+        st.info("Déconnecté. Rechargez la page si besoin.")
 
-        elif page == "Déconnexion":
-            st.session_state.logged_in = False
-            st.session_state.username = ""
-            st.info("Déconnecté. Rechargez la page si besoin.")
 
