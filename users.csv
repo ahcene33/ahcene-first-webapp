@@ -1,0 +1,3 @@
+﻿name;password;email;failed_login_attempts;logged_in;role
+root;1234;test@test.fr;2;True;admin
+user1;1234;test@testtest.fr;2;True;user
