@@ -34,7 +34,18 @@ if not st.session_state.logged_in:
 if st.session_state.logged_in:
     # Barre latérale à gauche
     st.sidebar.title("Menu")
-    page = st.sidebar.radio("Navigation", [f"Bienvenue {st.session_state.username}", "Accueil", "Les photos de mon chat", "Déconnexion"])
+    
+    # Message de bienvenue (hors du menu)
+    st.sidebar.markdown(f"**Bienvenue {st.session_state.username}**")
+
+    # Menu sans "Bienvenue {utilisateur}" ni "Déconnexion"
+    page = st.sidebar.radio("Navigation", ["Accueil", "Les photos de mon chat"])
+
+    # Bouton de déconnexion séparé
+    if st.sidebar.button("Déconnexion"):
+        st.session_state.logged_in = False
+        st.session_state.username = ""
+        st.info("Déconnecté. Rechargez la page si besoin.")
 
     # Zone principale à droite
     if page == "Accueil":
@@ -51,9 +62,5 @@ if st.session_state.logged_in:
         with col3:
             st.image("https://cdn.prod.website-files.com/5e55edd70aff9d4e8cf28aed/60a42459841a596126136981_wellness.png")
 
-    elif page == "Déconnexion":
-        st.session_state.logged_in = False
-        st.session_state.username = ""
-        st.info("Déconnecté. Rechargez la page si besoin.")
 
 
